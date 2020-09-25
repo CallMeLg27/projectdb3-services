@@ -2,6 +2,7 @@
 
 var express = require('express');
 var bodyParser = require('body-parser');
+var cors = require('cors');
 
 var app = express();
 
@@ -15,6 +16,7 @@ app.use(bodyParser.json());
 // configurar cabecera hhtp
 
 // rutas 
+app.use(cors());
 app.use('/', users_routes);
 
 module.exports = app;
