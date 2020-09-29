@@ -3,19 +3,19 @@
 var Users = require('../models/users');
 
 
-function saveUsers(req, res) {
-  var users = new Users();
+function saveUser(req, res) {
+  var user = new Users();
   var params = req.body;
 
   console.log(params);
-  users.name = params.name;
-  users.surname = params.surname;
-  users.email = params.email;
-  users.phone = params.phone;
-  users.password = params.password;
-  users.role = params.role;
+  user.name = params.name;
+  user.surname = params.surname;
+  user.email = params.email;
+  user.phone = params.phone;
+  user.password = params.password;
+  user.role = params.role;
 
-  users.save((err, usersStored) => {
+  user.save((err, userStored) => {
     if (err) {
       return res.status(500).json({
         ok: false,
@@ -23,7 +23,7 @@ function saveUsers(req, res) {
       });
     }
 
-    if (!usersStored) {
+    if (!userStored) {
       return res.status(400).json({
         ok: false,
         err
@@ -32,7 +32,7 @@ function saveUsers(req, res) {
 
     res.json({
       ok: true,
-      users: usersStored,
+      users: userStored,
       message: 'Creacion Exitosa'
     });
   });
@@ -82,11 +82,11 @@ function loginUser(req, res) {
   });
 }
 
-function updateUsers(req, res) {
+function updateUser(req, res) {
   var usersId = req.params.id;
   var update = req.body;
 
-  Users.findByIdAndUpdate(usersId, update, (err, usersUpdated) => {
+  Users.findByIdAndUpdate(userId, update, (err, userUpdated) => {
     if (err) {
       return res.status(500).json({
         ok: false,
@@ -94,7 +94,7 @@ function updateUsers(req, res) {
       });
     }
 
-    if (!usersUpdated) {
+    if (!userUpdated) {
       return res.status(400).json({
         ok: false,
         message: 'No se pudo actualizar al usuario'
@@ -103,14 +103,14 @@ function updateUsers(req, res) {
 
     res.status(200).json({
       ok: true,
-      users: usersUpdated,
+      users: userUpdated,
       message: 'El usuario fue actualizado'
     });
   });
 }
 
 module.exports = {
-  saveUsers,
+  saveUser,
   loginUser,
-  updateUsers
+  updateUser
 };
