@@ -19,7 +19,7 @@ app.use(bodyParser.json());
 
 // rutas 
 app.use(cors());
-app.use('/users', users_routes);
+app.use('/', users_routes);
 app.use('/likes', likes_routes);
 app.use('/dislikes', dislikes_routes);
 
